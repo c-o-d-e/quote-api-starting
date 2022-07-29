@@ -13,6 +13,23 @@ app.get("/api/quotes/random", (req, res, next) => {
     res.send({ quote: quoteExpression });
 });
 
+app.get("/api/quotes", (req, res) => {
+    if (req.query.person !== undefined) {
+        const quotesByPerson = quotes.filter(
+            quote => quote.person === req.query.person
+        );
+        res.send({
+            quotes: quotesByPerson,
+        });
+    } else {
+        res.send({
+            quotes: quotes,
+        });
+    }
+});
+
+
+
 app.listen(PORT, () => {
     console.log("The server has started");
 });
